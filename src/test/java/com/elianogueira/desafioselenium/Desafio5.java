@@ -1,6 +1,6 @@
 package com.elianogueira.desafioselenium;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.After;
 import org.junit.Before;
@@ -11,46 +11,35 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class Desafio5 {
 
-	private WebDriver driver = null;
+	private WebDriver driver;
 	
 	@Before
-	public void preCondicao() throws Exception {
+	public void preCondicao() {
 		driver = new FirefoxDriver();
-		
 		driver.get("http://eliasnogueira.com/arquivos_blog/selenium/desafio/5desafio/");
-	}
-
-	@Test
-	public void testeCaminhoFeliz() {
-		
-		// cria as localizacoes de xpath
-		String xpathUsername = "//label[text() = 'Username']/following-sibling::div/input";
-		String xpathUsernameRepetir = "//label[text() = 'Username (repetir)']/following-sibling::div/input";
-		String xpathPassword = "//label[text() = 'Password']/following-sibling::div/input";
-		String xpathPasswordRepetir = "//label[text() = 'Password (repetir)']/following-sibling::div/input"; 
-		
-		// cria as variaveis de usuario e senha
-		String usuario = "elias";
-		String senha = "123456";
-		
-		// preenche o usuario e senha
-		driver.findElement(By.xpath(xpathUsername)).sendKeys(usuario);
-		driver.findElement(By.xpath(xpathUsernameRepetir)).sendKeys(usuario);
-		
-		driver.findElement(By.xpath(xpathPassword)).sendKeys(senha);
-		driver.findElement(By.xpath(xpathPasswordRepetir)).sendKeys(senha);
-		
-		// Faz as validacoes para confirmar que os campos foram preenchidos
-		// dificilmente fazemo validações destas, mas esta aqui apenas em carater ditatico
-		assertEquals(usuario, driver.findElement(By.xpath(xpathUsername)).getAttribute("value"));
-		assertEquals(usuario, driver.findElement(By.xpath(xpathUsernameRepetir)).getAttribute("value"));
-		assertEquals(senha, driver.findElement(By.xpath(xpathPassword)).getAttribute("value"));
-		assertEquals(senha, driver.findElement(By.xpath(xpathPasswordRepetir)).getAttribute("value"));
 	}
 	
 	@After
-	public void posCondicao() throws Exception {
+	public void posCondicao() {
 		driver.quit();
+	}
+	
+	@Test
+	public void testePreenchimentoCamposDinamicos() {
+		/*
+		 * Preenche os campos utilizando as funcoes  text() e following-sibling
+		 */
+		driver.findElement(By.xpath("//label[text() = 'Username']/following-sibling::div/input")).sendKeys("eliasn");
+		driver.findElement(By.xpath("//label[text() = 'Username (repetir)']/following-sibling::div/input")).sendKeys("elias");
+		driver.findElement(By.xpath("//label[text() = 'Password']/following-sibling::div/input")).sendKeys("12345");
+		driver.findElement(By.xpath("//label[text() = 'Password (repetir)']/following-sibling::div/input")).sendKeys("12345");
+		
+		driver.findElement(By.id("submitBtn2")).click();
+		
+		/*
+		 * Validar o resultado por não ter preenchido o campo username igual
+		 */
+		assertEquals("Os campos não tem o mesmo valor!", driver.findElement(By.id("submitBtn2")).getText());
 	}
 
 }
