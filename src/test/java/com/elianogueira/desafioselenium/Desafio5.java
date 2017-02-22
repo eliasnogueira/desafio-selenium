@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 
 public class Desafio5 {
 
@@ -15,7 +15,17 @@ public class Desafio5 {
 	
 	@Before
 	public void preCondicao() {
-		driver = new FirefoxDriver();
+		/**
+		 * É necessário que você  baixe o 'chromedriver' para sua máquina e altere o caminho
+		 * da propriedade abaixo
+		 * 
+		 * Local para baixar o chromedriver
+		 * https://sites.google.com/a/chromium.org/chromedriver/
+		 * 
+		 */
+		System.setProperty("webdriver.chrome.driver", "/Users/eliasnogueira/Selenium/chromedriver");
+		
+		driver = new ChromeDriver();
 		driver.get("http://eliasnogueira.com/arquivos_blog/selenium/desafio/5desafio/");
 	}
 	

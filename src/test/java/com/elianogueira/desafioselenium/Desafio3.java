@@ -1,6 +1,6 @@
 package com.elianogueira.desafioselenium;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import org.junit.After;
 import org.junit.Before;
@@ -8,7 +8,7 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -21,7 +21,17 @@ public class Desafio3 {
 	
 	@Before
 	public void preCondicao() throws Exception {
-		driver = new FirefoxDriver();
+		/**
+		 * É necessário que você  baixe o 'chromedriver' para sua máquina e altere o caminho
+		 * da propriedade abaixo
+		 * 
+		 * Local para baixar o chromedriver
+		 * https://sites.google.com/a/chromium.org/chromedriver/
+		 * 
+		 */
+		System.setProperty("webdriver.chrome.driver", "/Users/eliasnogueira/Selenium/chromedriver");
+		
+		driver = new ChromeDriver();
 		wait = new WebDriverWait(driver, 10);
 		
 		driver.get("http://eliasnogueira.com/arquivos_blog/selenium/desafio/3desafio/");

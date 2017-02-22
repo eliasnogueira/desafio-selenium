@@ -8,11 +8,10 @@ import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
-import com.thoughtworks.selenium.webdriven.JavascriptLibrary;
 
 public class Desafio4 {
 
@@ -21,7 +20,17 @@ public class Desafio4 {
 	
 	@Before
 	public void preCondicao() throws Exception {
-		driver = new FirefoxDriver();
+		/**
+		 * É necessário que você  baixe o 'chromedriver' para sua máquina e altere o caminho
+		 * da propriedade abaixo
+		 * 
+		 * Local para baixar o chromedriver
+		 * https://sites.google.com/a/chromium.org/chromedriver/
+		 * 
+		 */
+		System.setProperty("webdriver.chrome.driver", "/Users/eliasnogueira/Selenium/chromedriver");
+		
+		driver = new ChromeDriver();
 		wait = new WebDriverWait(driver, 10);
 		
 		driver.get("http://eliasnogueira.com/arquivos_blog/selenium/desafio/4desafio/");
@@ -34,8 +43,7 @@ public class Desafio4 {
 		cep.sendKeys("01310200");
 		
 		// dispara o evento onblur do campo cep
-		JavascriptLibrary jsLibrary = new JavascriptLibrary();
-		jsLibrary.callEmbeddedSelenium(driver, "doFireEvent", cep, "blur");
+		new Actions(driver).moveToElement(cep).click().perform();
 		
 		driver.findElement(By.id("numero")).sendKeys("1578");
 		driver.findElement(By.id("complemento")).sendKeys("MASP");
